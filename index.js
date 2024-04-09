@@ -5,7 +5,10 @@ const helmet = require("helmet");
 const session = require("express-session");
 const cors = require("cors");
 const xss = require("xss-clean");
-const PORT = 8080;
+const Book = require("./models/book.model");
+const bookRouter = require("./routers/book.router");
+app.use(express.static("public"));
+const PORT = 5000;
 app.use(helmet());
 app.use(
   session({
@@ -22,6 +25,8 @@ app.use(
 );
 
 app.use(xss());
+
+app.use("/api/v1/book", bookRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
