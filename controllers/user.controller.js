@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const { hashPassword, genAccessToken, genRefreshToken } = require("../ultis");
+const { genAccessToken } = require("../ultis");
 
 const register = async (req, res) => {
   const user = req.body;
@@ -14,7 +14,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const user = req.body;
   const result = await User.login(user);
-  if (result) {
+  if (result.length !== 0) {
     const payload = {
       id: result[0].id,
       username: result[0].username,
@@ -31,7 +31,7 @@ const login = async (req, res) => {
   }
 };
 
-const getUserByid = async (req, res) => {
+const getUserById = async (req, res) => {
   const { id } = req.user;
   const user = await User.getById(id);
   if (user.length === 0) {
@@ -41,4 +41,43 @@ const getUserByid = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUserByid };
+const changePassword = async (req, res) => {
+  const { password, newpassword } = req.body;
+  const user = req.user;
+  user.password = password;
+  const result = await User.login(user);
+  if (result.length !== 0) {
+    user.password = newpassword;
+    try {
+      await User.changePassword(user);
+      return res.status(200).json({ msg: "Change password successfully!" });
+    } catch (err) {
+      return res.status(500).json({ msg: "Internal Server Error!" });
+    }
+  } else {
+    return res.status(401).json({ msg: "Pasword is wrong!" });
+  }
+};
+
+const changeInfo = async (req, res) => {
+  const newUser = req.body;
+  const user = req.user;
+  user.password = newUser.password;
+  newUser.id = user.id;
+  console.log(user);
+  console.log(newUser);
+  const result = await User.login(user);
+  if (result.length !== 0) {
+    console.log("Authentication");
+    try {
+      await User.changeInfo(newUser);
+      return res.status(200).json({ msg: "Change info successfully!" });
+    } catch (err) {
+      return res.status(500).json({ msg: "Internal Server Error!" });
+    }
+  } else {
+    return res.status(401).json({ msg: "Pasword is wrong!" });
+  }
+};
+
+module.exports = { register, login, getUserById, changePassword, changeInfo };

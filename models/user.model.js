@@ -36,6 +36,29 @@ const User = {
       }
     });
   },
+  changePassword: (user) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = "CALL suamatkhauuser(?,?)";
+        const result = await conn.query(sql, [user.id, user.password]);
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
+  changeInfo: (user) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = "CALL suathongtin(?,?,?)";
+        console.log(user);
+        const result = await conn.query(sql, [user.id, user.name, user.email]);
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 };
 
 module.exports = User;

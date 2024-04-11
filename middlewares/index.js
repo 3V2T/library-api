@@ -8,7 +8,7 @@ const authen = (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(403).json({ msg: "Unauthorization" });
+    res.status(401).json({ msg: "Unauthorization" });
   }
 };
 
