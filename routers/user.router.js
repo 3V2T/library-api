@@ -6,7 +6,7 @@ const {
   changePassword,
   changeInfo,
 } = require("../controllers/user.controller");
-const authen = require("../middlewares");
+const { authen } = require("../middlewares");
 const router = express.Router();
 
 router.route("/register").post(register);

@@ -10,7 +10,8 @@ const bookRouter = require("./routers/book.router");
 const userRouter = require("./routers/user.router");
 const categoryRouter = require("./routers/category.router");
 const authorRouter = require("./routers/author.router");
-const authen = require("./middlewares");
+const wishListRouter = require("./routers/wishlist.router");
+const { authen } = require("./middlewares");
 app.use(express.static("public"));
 const PORT = 5000;
 app.use(helmet());
@@ -37,6 +38,7 @@ app.use("/api/v1/user", userRouter);
 app.get("/api/v1/authen", authen);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/author", authorRouter);
+app.use("/api/v1/wishlist", wishListRouter);
 app.get("/", (req, res) => {
   res.send("hello");
 });
