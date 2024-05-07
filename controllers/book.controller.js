@@ -78,13 +78,19 @@ const getBookById = async (req, res) => {
 const searchByKeyword = async (req, res) => {
   const keyword = req.query.keyword;
   const books = await Book.searchByKeyword(keyword);
-  if (books.length !== 0) {
-    Array.from(books).forEach((book) => {
-      book.cover_path = "/uploads/books-cover/" + book.cover_path;
-      book.file_path = "/uploads/books/" + book.file_path;
-    });
-    return res.status(200).json({ books });
-  } else {
+  try {
+    if (books.length !== 0) {
+      Array.from(books).forEach((book) => {
+        book.cover_path = "/uploads/books-cover/" + book.cover_path;
+        book.file_path = "/uploads/books/" + book.file_path;
+      });
+      return res.status(200).json({ books });
+    } else {
+      return res
+        .status(404)
+        .json({ msg: "There're any books match this keyword!" });
+    }
+  } catch (error) {
     return res
       .status(404)
       .json({ msg: "There're any books match this keyword!" });
