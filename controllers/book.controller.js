@@ -78,6 +78,7 @@ const getBookById = async (req, res) => {
 const searchByKeyword = async (req, res) => {
   const keyword = req.query.keyword;
   const books = await Book.searchByKeyword(keyword);
+  console.log(books);
   try {
     if (books.length !== 0) {
       Array.from(books).forEach((book) => {

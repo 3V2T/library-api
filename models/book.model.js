@@ -28,7 +28,7 @@ const Book = {
       try {
         const sql = "SELECT * FROM books WHERE title LIKE ?";
         const [results] = await conn.query(sql, [`%${keyword}%`]);
-        resolve(results[0]);
+        resolve(results);
       } catch (err) {
         reject(err);
       }
