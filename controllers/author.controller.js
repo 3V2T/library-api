@@ -29,4 +29,14 @@ const getById = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById };
+const getByName = async (req, res) => {
+  const { name } = req.query;
+  const author = await Author.getByName(name);
+  if (author.length === 0) {
+    return res.status(404).json({ msg: "There isn't any author match!" });
+  } else {
+    return res.status(200).json({ author });
+  }
+};
+
+module.exports = { getAll, getById, getByName };

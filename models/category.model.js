@@ -34,6 +34,17 @@ const Category = {
       }
     });
   },
+  getByName: (name) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = "SELECT * FROM vwcategories WHERE name =?";
+        const [result] = await conn.query(sql, [name]);
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
 };
 
 module.exports = Category;

@@ -29,6 +29,15 @@ const getById = async (req, res) => {
   }
 };
 
-const getByCategory = async (req, res) => {};
+const getByName = async (req, res) => {
+  const { name } = req.query;
+  console.log(name);
+  const category = await Category.getByName(name);
+  if (category.length === 0) {
+    return res.status(404).json({ msg: "There isn't any category match!" });
+  } else {
+    return res.status(200).json({ category });
+  }
+};
 
-module.exports = { getAll, getById };
+module.exports = { getAll, getById, getByName };

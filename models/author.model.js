@@ -34,6 +34,17 @@ const Author = {
       }
     });
   },
+  getByName: (name) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = "SELECT * FROM authors WHERE author = ?";
+        const [results] = await conn.query(sql, [name]);
+        resolve(results);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  },
 };
 
 module.exports = Author;
