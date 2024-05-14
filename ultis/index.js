@@ -13,9 +13,11 @@ const Ultis = {
 
   verifyAccessToken: (token) => {
     try {
+      console.log(token);
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       return decoded;
     } catch (err) {
+      console.log(err.message);
       throw err;
     }
   },
