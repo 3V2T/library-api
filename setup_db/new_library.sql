@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2024 lúc 04:36 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Máy chủ: mysql
+-- Thời gian đã tạo: Th5 18, 2024 lúc 04:51 AM
+-- Phiên bản máy phục vụ: 8.4.0
+-- Phiên bản PHP: 8.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` char(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `admin`
@@ -47,10 +47,10 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 --
 
 CREATE TABLE `authors` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `author` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `description` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `authors`
@@ -97,15 +97,15 @@ DELIMITER ;
 --
 
 CREATE TABLE `books` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `title` varchar(100) NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `author_id` int NOT NULL,
+  `category_id` int NOT NULL,
   `cover_path` varchar(260) NOT NULL,
   `file_path` varchar(260) NOT NULL,
-  `description` text DEFAULT NULL,
-  `published` date NOT NULL DEFAULT curdate()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `description` text,
+  `published` date NOT NULL DEFAULT (curdate())
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `books`
@@ -148,10 +148,10 @@ DELIMITER ;
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `category` char(100) NOT NULL,
   `name` char(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `categories`
@@ -180,11 +180,11 @@ INSERT INTO `categories` (`id`, `category`, `name`) VALUES
 --
 
 CREATE TABLE `history` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `last_read` date NOT NULL DEFAULT curdate()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `book_id` int NOT NULL,
+  `last_read` date NOT NULL DEFAULT (curdate())
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -193,12 +193,12 @@ CREATE TABLE `history` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` char(128) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
@@ -234,7 +234,7 @@ DELIMITER ;
 -- (See below for the actual view)
 --
 CREATE TABLE `vwadmin` (
-`id` int(11)
+`id` int
 ,`username` varchar(50)
 ,`password` char(128)
 );
@@ -246,7 +246,7 @@ CREATE TABLE `vwadmin` (
 -- (See below for the actual view)
 --
 CREATE TABLE `vwauthors` (
-`id` int(11)
+`id` int
 ,`author` varchar(100)
 ,`description` text
 );
@@ -258,10 +258,10 @@ CREATE TABLE `vwauthors` (
 -- (See below for the actual view)
 --
 CREATE TABLE `vwbooks` (
-`id` int(11)
+`id` int
 ,`title` varchar(100)
-,`author_id` int(11)
-,`category_id` int(11)
+,`author_id` int
+,`category_id` int
 ,`cover_path` varchar(260)
 ,`file_path` varchar(260)
 ,`description` text
@@ -275,7 +275,7 @@ CREATE TABLE `vwbooks` (
 -- (See below for the actual view)
 --
 CREATE TABLE `vwcategories` (
-`id` int(11)
+`id` int
 ,`category` char(100)
 ,`name` char(100)
 );
@@ -287,7 +287,7 @@ CREATE TABLE `vwcategories` (
 -- (See below for the actual view)
 --
 CREATE TABLE `vwhistory` (
-`id` int(11)
+`id` int
 ,`name` varchar(100)
 ,`title` varchar(100)
 ,`last_read` date
@@ -300,7 +300,7 @@ CREATE TABLE `vwhistory` (
 -- (See below for the actual view)
 --
 CREATE TABLE `vwusers` (
-`id` int(11)
+`id` int
 ,`username` varchar(50)
 ,`password` char(128)
 ,`name` varchar(100)
@@ -314,7 +314,7 @@ CREATE TABLE `vwusers` (
 -- (See below for the actual view)
 --
 CREATE TABLE `vwwishlist` (
-`id` int(11)
+`id` int
 ,`name` varchar(100)
 ,`title` varchar(100)
 );
@@ -326,10 +326,10 @@ CREATE TABLE `vwwishlist` (
 --
 
 CREATE TABLE `wishlist` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `book_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `wishlist`
@@ -389,7 +389,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vwhistory`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwhistory`  AS SELECT `history`.`id` AS `id`, `users`.`name` AS `name`, `books`.`title` AS `title`, `history`.`last_read` AS `last_read` FROM ((`history` join `users` on(`history`.`user_id` = `users`.`id`)) join `books` on(`history`.`book_id` = `books`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwhistory`  AS SELECT `history`.`id` AS `id`, `users`.`name` AS `name`, `books`.`title` AS `title`, `history`.`last_read` AS `last_read` FROM ((`history` join `users` on((`history`.`user_id` = `users`.`id`))) join `books` on((`history`.`book_id` = `books`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -407,7 +407,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vwwishlist`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwwishlist`  AS SELECT `wishlist`.`id` AS `id`, `users`.`name` AS `name`, `books`.`title` AS `title` FROM ((`wishlist` join `users` on(`wishlist`.`user_id` = `users`.`id`)) join `books` on(`wishlist`.`book_id` = `books`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwwishlist`  AS SELECT `wishlist`.`id` AS `id`, `users`.`name` AS `name`, `books`.`title` AS `title` FROM ((`wishlist` join `users` on((`wishlist`.`user_id` = `users`.`id`))) join `books` on((`wishlist`.`book_id` = `books`.`id`))) ;
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -475,43 +475,43 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT cho bảng `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT cho bảng `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
