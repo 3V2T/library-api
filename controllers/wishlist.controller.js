@@ -22,7 +22,7 @@ const addWishList = async (req, res) => {
 };
 
 const removeWishList = async (req, res) => {
-  const { bookId } = req.body;
+  const bookId = req.params.id;
   const id = req.user.id;
   try {
     await WishList.removeByUser({ user_id: id, book_id: bookId });
