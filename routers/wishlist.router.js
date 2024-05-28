@@ -10,5 +10,6 @@ router
   .route("/")
   .get(authen, getWishListByToken)
   .post(authen, addWishList)
-  .delete(authen, removeWishList);
+  
+router.route("/:id").delete(authen, removeWishList);
 module.exports = router;

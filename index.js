@@ -11,6 +11,7 @@ const userRouter = require("./routers/user.router");
 const categoryRouter = require("./routers/category.router");
 const authorRouter = require("./routers/author.router");
 const wishListRouter = require("./routers/wishlist.router");
+const historyRouter = require('./routers/history.router')
 const { authen } = require("./middlewares");
 app.use(express.static("public"));
 const PORT = 5000;
@@ -39,6 +40,7 @@ app.get("/api/v1/authen", authen);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/author", authorRouter);
 app.use("/api/v1/wishlist", wishListRouter);
+app.use('/api/v1/history', historyRouter)
 app.get("/", (req, res) => {
   res.send("hello");
 });

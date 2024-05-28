@@ -3,6 +3,7 @@
     "bcrypt": "*",
     "body-parser": "*",
     "cors": "*",
+    "date-fns": "^3.6.0",
     "dotenv": "*",
     "express": "*",
     "express-session": "*",
