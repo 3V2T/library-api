@@ -1,12 +1,11 @@
-const mysql = require("mysql2/promise");
-const dbconfig = require("../dbconfig");
-console.log(dbconfig);
+const mysql = require('mysql2/promise')
+const dbconfig = require('../dbconfig')
+console.log(dbconfig)
 const conn = mysql.createPool({
-    host: 'localhost', 
-    user: 'root', 
-    password: 'van123456', 
-    database: 'newlibrary',
-});
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE,
+})
 
-
-module.exports = conn;
+module.exports = conn
