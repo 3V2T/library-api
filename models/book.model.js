@@ -37,10 +37,9 @@ const Book = {
   getBookByKeyWordAuthor: (keyword) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const sql =
-          "SELECT b.id, b.title, b.author_id, b.category_id, b.cover_path, b.file_path, b.description, b.published FROM books b INNER JOIN authors a ON b.author_id = a.id WHERE MATCH(a.author) AGAINST ( ? IN BOOLEAN MODE)";
-        const [results] = await conn.query(sql, [`+${keyword}*`]);
-        resolve(results);
+        const sql = "CALL timsachtheotacgia(?)";
+        const [results] = await conn.query(sql, [keyword]);
+        resolve(results[0]);
       } catch (err) {
         reject(err);
       }
