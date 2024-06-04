@@ -1,9 +1,11 @@
-const host = process.env.DB_HOST;
 
-const user = process.env.DB_USER;
+const host = process.env.DB_HOST
 
-const password = process.env.DB_PASS;
+const user = process.env.DB_USER
 
-const database = process.env.DB_DATABASE;
-console.log(database);
-module.exports = { host, user, password, database };
+const password = process.env.DB_PASS
+
+const database = process.env.DB_DATABASE
+console.log(database)
+module.exports = { host, user, password, database }
+
