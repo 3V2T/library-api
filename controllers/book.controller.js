@@ -97,6 +97,23 @@ const searchByKeyword = async (req, res) => {
       .json({ msg: "There're any books match this keyword!" });
   }
 };
+
+const getBookByKeyWordAuthor = async (req, res, next) => {
+  const keyword = req.query.keyword;
+  console.log(keyword);
+  const books = await Book.getBookByKeyWordAuthor(keyword);
+  if (books.length !== 0) {
+    Array.from(books).forEach((book) => {
+      book.cover_path = "/uploads/books-cover/" + book.cover_path;
+      book.file_path = "/uploads/books/" + book.file_path;
+    });
+    return res.status(200).json({ books });
+  } else {
+    return res
+      .status(404)
+      .json({ msg: "There're any books match this keyword!" });
+  }
+};
 const getBookByCategory = async (req, res) => {
   const param = req.params.category;
   const category = await Category.getByCategory(param);
@@ -141,4 +158,5 @@ module.exports = {
   searchByKeyword,
   getBookByCategory,
   getBookByAuthor,
+  getBookByKeyWordAuthor,
 };
