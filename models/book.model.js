@@ -26,9 +26,9 @@ const Book = {
   searchByKeyword: (keyword) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = "SELECT * FROM books WHERE title LIKE ?";
+        const sql = "CALL timsach(?)";
         const [results] = await conn.query(sql, [`%${keyword}%`]);
-        resolve(results);
+        resolve(results[0]);
       } catch (err) {
         reject(err);
       }
